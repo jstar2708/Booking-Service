@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/api/booking/")
+@RequestMapping("/v1/api/booking")
 @Log4j2
 public class BookingController {
     @Qualifier("hotelBookingService")
