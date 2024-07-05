@@ -21,6 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class HotelBookingService implements BookingService {
     private final HotelBookingRepository hotelBookingRepository;
+
     @Override
     public BookingResponse createBooking(BookingRequest bookingRequest) {
         if (!(bookingRequest instanceof HotelBookingRequest)) {

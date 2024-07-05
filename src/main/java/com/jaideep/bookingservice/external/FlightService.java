@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "FS", url = "http://localhost:8082/v1/api/flight",value = "FS")
+@FeignClient(name = "FS", url = "http://localhost:8082/v1/api/flight", value = "FS")
 public interface FlightService {
     @PutMapping("/reserveSeats/{id}")
     void reserveSeats(@PathVariable("id") String flightNumber, @RequestParam int seats);

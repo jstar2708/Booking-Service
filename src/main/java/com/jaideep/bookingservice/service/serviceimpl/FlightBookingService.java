@@ -2,7 +2,6 @@ package com.jaideep.bookingservice.service.serviceimpl;
 
 import com.jaideep.bookingservice.entity.BookingStatus;
 import com.jaideep.bookingservice.entity.FlightBooking;
-import com.jaideep.bookingservice.external.FlightService;
 import com.jaideep.bookingservice.model.BookingRequest;
 import com.jaideep.bookingservice.model.BookingResponse;
 import com.jaideep.bookingservice.model.FlightBookingRequest;
@@ -18,9 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -29,7 +25,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FlightBookingService implements BookingService {
     private final FlightBookingRepository flightBookingRepository;
-//    private final FlightService flightService;
     private final RestTemplate restTemplate;
 
     @Override
@@ -55,7 +50,6 @@ public class FlightBookingService implements BookingService {
     public String reserveSeats(BookingRequest bookingRequest) {
         FlightBookingRequest flightBookingRequest = (FlightBookingRequest) bookingRequest;
         restTemplate.put("http://FLIGHT-SERVICE/v1/api/flight/reserveSeats/" + flightBookingRequest.getFlightNumber() + "?seats={seats}", null, flightBookingRequest.getSeats());
- //       flightService.reserveSeats(flightBookingRequest.getFlightNumber(), flightBookingRequest.getSeats());
         log.info("Seats are reserved for booking {}", flightBookingRequest.getFlightNumber());
         return "Booking Id created successfully";
     }
@@ -73,6 +67,7 @@ public class FlightBookingService implements BookingService {
         flightBooking.setPaymentMode(flightBookingRequest.getPaymentMode());
         flightBooking.setStatus(BookingStatus.CREATED.name());
         flightBooking.setSeats(flightBookingRequest.getSeats());
+        flightBooking.setDepartureDate(flightBookingRequest.getDepartureDate());
         return flightBooking;
     }
 }

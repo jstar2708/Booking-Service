@@ -19,13 +19,8 @@ public class CustomErrorDecoder implements ErrorDecoder {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ErrorResponse errorResponse = objectMapper.readValue(response.body().asInputStream(), ErrorResponse.class);
-            return new BookingException(
-                    errorResponse.getErrorMessage(),
-                    errorResponse.getErrorCode(),
-                    response.status()
-            );
-        }
-        catch (IOException e) {
+            return new BookingException(errorResponse.getErrorMessage(), errorResponse.getErrorCode(), response.status());
+        } catch (IOException e) {
             throw new BookingException("Internal Server Error", "INTERNAL SERVER ERROR", 500);
         }
     }
